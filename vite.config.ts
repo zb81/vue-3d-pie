@@ -26,6 +26,7 @@ const buildOptionsForSite: BuildOptions = {
 }
 
 export default defineConfig({
+  base: '/vue-3d-pie',
   plugins: [vue()],
   build: IS_LIB ? buildOptionsForLib : buildOptionsForSite,
 })
