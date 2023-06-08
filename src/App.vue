@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import TransparentTexture from './study/texture/TransparentTexture.vue'
+import TextureAnimation from './study/texture/TextureAnimation.vue'
 
 </script>
 
 <template>
-  <TransparentTexture />
+  <TextureAnimation />
 </template>
 
 <style>
