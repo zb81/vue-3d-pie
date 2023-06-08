@@ -2,7 +2,8 @@
   "compilerOptions": {
     "emitDeclarationOnly": true,
     "declaration": true,
-    "outDir": "types"
+    "outDir": "types",
+    "allowJs": true
   },
   "include": ["src/Vue3dPie"]
 }

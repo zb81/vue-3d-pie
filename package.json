@@ -8,7 +8,7 @@
     "vue"
   ],
   "license": "MIT",
-  "repository": "https://github.com/zb81/50projects",
+  "repository": "https://github.com/zb81/vue-3d-pie",
   "author": "Zhu Bei <zbneversettle@gmail.com>",
   "files": [
     "lib",
@@ -24,14 +24,13 @@
   },
   "bugs": {
     "email": "zbneversettle@gmail.com",
-    "url": "https://github.com/zb81/50projects/issues/new"
+    "url": "https://github.com/zb81/vue-3d-pie/issues/new"
   },
   "peerDependencies": {
     "vue": ">=3"
   },
   "dependencies": {
-    "three": "0.134",
-    "troisjs": "^0.3.4"
+    "three": "^0.153.0"
   },
   "devDependencies": {
     "@types/node": "^20.2.5",
