@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import RendererConfig from './study/basic/RendererConfig.vue'
+import GuiGroup from './study/gui/GuiGroup.vue'
+
 </script>
 
 <template>
-  <RendererConfig />
+  <GuiGroup />
 </template>
 
 <style>
