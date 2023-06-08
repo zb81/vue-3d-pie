@@ -1,21 +1,28 @@
 <script setup>
-import { AxesHelper, BoxGeometry, BufferAttribute, BufferGeometry, DoubleSide, Mesh, MeshBasicMaterial, PerspectiveCamera, PlaneGeometry, PointLight, PointLightHelper, Scene, SphereGeometry, TextureLoader, WebGLRenderer } from 'three'
+import { AxesHelper, BoxGeometry, BufferAttribute, BufferGeometry, CircleGeometry, DoubleSide, Mesh, MeshBasicMaterial, PerspectiveCamera, PlaneGeometry, PointLight, PointLightHelper, RepeatWrapping, Scene, SphereGeometry, TextureLoader, WebGLRenderer } from 'three'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import Stats from 'three/addons/libs/stats.module.js'
 import picUrl from './assets/girl.jpg'
+import tileUrl from './assets/tile.jpeg'
 
 const scene = new Scene()
 const axesHelper = new AxesHelper(150)
 scene.add(axesHelper)
 
-// const geometry = new PlaneGeometry(200, 100)
+const geometry = new PlaneGeometry(2000, 2000)
 // const geometry = new BoxGeometry(100, 100, 100)
-const geometry = new SphereGeometry(60, 25, 25)
+// const geometry = new SphereGeometry(60, 25, 25)
+// const geometry = new CircleGeometry(60, 100)
 const texLoader = new TextureLoader()
-const texture = texLoader.load(picUrl)
+const texture = texLoader.load(tileUrl)
 const material = new MeshBasicMaterial({ map: texture })
 const mesh = new Mesh(geometry, material)
+texture.wrapS = RepeatWrapping
+texture.wrapT = RepeatWrapping
+texture.repeat.set(12, 12)
+mesh.rotateX(-Math.PI / 2)
 scene.add(mesh)
+console.log('uv', geometry.attributes.uv)
 
 const pointLight = new PointLight(0xffffff, 1)
 pointLight.position.set(150, 150, 150)
@@ -26,7 +33,7 @@ scene.add(plh)
 const width = window.innerWidth
 const height = window.innerHeight
 
-const camera = new PerspectiveCamera(30, width / height, 1, 3000)
+const camera = new PerspectiveCamera(30, width / height, 1, 10000)
 camera.position.set(300, 300, 300)
 
 const renderer = new WebGLRenderer({ antialias: true })
