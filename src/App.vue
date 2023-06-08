@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import GuiGroup from './study/gui/GuiGroup.vue'
+import GeometryPosition from './study/buffer-geometry/GeometryPosition.vue'
 
 </script>
 
 <template>
-  <GuiGroup />
+  <GeometryPosition />
 </template>
 
 <style>
