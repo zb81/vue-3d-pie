@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import GeometryPosition from './study/buffer-geometry/GeometryPosition.vue'
+import TraverseTree from './study/hierarchy-model/TraverseTree.vue'
 
 </script>
 
 <template>
-  <GeometryPosition />
+  <TraverseTree />
 </template>
 
 <style>
