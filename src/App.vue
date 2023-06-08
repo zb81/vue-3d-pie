@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import TraverseTree from './study/hierarchy-model/TraverseTree.vue'
+import TextureStarter from './study/texture/TextureStarter.vue'
 
 </script>
 
 <template>
-  <TraverseTree />
+  <TextureStarter />
 </template>
 
 <style>
