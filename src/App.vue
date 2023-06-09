@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import TextureAnimation from './study/texture/TextureAnimation.vue'
+import GLTFStarter from './study/gltf/GLTFStarter.vue'
 
 </script>
 
 <template>
-  <TextureAnimation />
+  <GLTFStarter />
 </template>
 
 <style>

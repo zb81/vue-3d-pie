@@ -15,6 +15,7 @@ const geometry = new PlaneGeometry(2000, 2000)
 // const geometry = new CircleGeometry(60, 100)
 const texLoader = new TextureLoader()
 const texture = texLoader.load(tileUrl)
+console.log(texture.colorSpace)
 const material = new MeshBasicMaterial({ map: texture })
 const mesh = new Mesh(geometry, material)
 texture.wrapS = RepeatWrapping
