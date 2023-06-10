@@ -2,7 +2,6 @@ import { resolve } from 'path'
 import type { BuildOptions } from 'vite'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import gltf from 'vite-plugin-gltf'
 
 const IS_LIB = process.env.BUILD_MODE === 'lib'
 
@@ -28,6 +27,6 @@ const buildOptionsForSite: BuildOptions = {
 
 export default defineConfig({
   base: '/vue-3d-pie',
-  plugins: [vue(), gltf()],
+  plugins: [vue()],
   build: IS_LIB ? buildOptionsForLib : buildOptionsForSite,
 })

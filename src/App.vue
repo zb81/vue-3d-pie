@@ -1,14 +1,13 @@
 <script setup lang="ts">
-import GLTFStarter from './study/gltf/GLTFStarter.vue'
 
 </script>
 
 <template>
-  <GLTFStarter />
+  <div>123</div>
 </template>
 
 <style>
-body {
+html, body {
   margin: 0;
 }
 </style>

@@ -5,5 +5,5 @@
     "outDir": "types",
     "allowJs": true
   },
-  "include": ["src/Vue3dPie"]
+  "include": ["./src"]
 }
