@@ -1,28 +1,69 @@
 <script setup lang="ts">
-import { Box, Camera, LambertMaterial, PointLight, Renderer, Scene } from 'troisjs'
-import { ref } from 'vue'
+import * as T from 'three'
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
+import { onMounted, shallowRef } from 'vue'
+import type { Props } from './types'
+import { palette } from './theme'
 
-const boxColor = ref('#fff')
+const props = withDefaults(defineProps<Props>(), {
+  orbitControlsEnabled: true,
+  antialias: false,
+  backgroundColor: '#1f2937',
+  palette: () => palette,
+})
 
-const boxOver = ({ over }) => {
-  boxColor.value = over ? '#ff0000' : '#ffffff'
+const ctnRef = shallowRef<HTMLDivElement>()
+const sceneRef = shallowRef<T.Scene>()
+function initThree() {
+  const { orbitControlsEnabled, antialias } = props
+  const scene = new T.Scene()
+  sceneRef.value = scene
+  const al = new T.AmbientLight(0xffffff, 0.2)
+  scene.add(al)
+  const sl = new T.SpotLight(0xffffff, 0.75, 0, 0.1, 1)
+  sl.position.set(10, 15, 10)
+  sl.castShadow = true
+  scene.add(sl)
+  scene.add(new T.AxesHelper(5))
+
+  const width = ctnRef.value!.clientWidth
+  const height = ctnRef.value!.clientHeight
+  const camera = new T.PerspectiveCamera(50, width / height, 0.1, 1000)
+  camera.position.set(3, 3, 4)
+  camera.lookAt(0, 0, 0)
+  const renderer = new T.WebGLRenderer({ antialias, alpha: true })
+  renderer.setSize(width, height)
+  renderer.setPixelRatio(window.devicePixelRatio)
+
+  const controls = new OrbitControls(camera, renderer.domElement)
+  controls.enableDamping = true
+  function animate() {
+    requestAnimationFrame(animate)
+    controls.update()
+    renderer.render(scene, camera)
+  }
+  if (orbitControlsEnabled) {
+    animate()
+  }
+  else {
+    renderer.render(scene, camera)
+  }
+  ctnRef.value!.appendChild(renderer.domElement)
 }
-const boxClick = (e) => {
-  console.log(e)
-}
+
+onMounted(() => {
+  initThree()
+})
 </script>
 
 <template>
-  <Renderer ref="renderer" :width="500" :height="500" antialias resize :orbit-ctrl="{ autoRotate: true, enableDamping: true, dampingFactor: 0.05 }">
-    <Camera :position="{ z: 10 }" />
-    <Scene>
-      <PointLight :position="{ y: 50, z: 50 }" />
-      <Box ref="box" :rotation="{ y: Math.PI / 4, z: Math.PI / 4 }" @pointer-over="boxOver" @click="boxClick">
-        <LambertMaterial :color="boxColor" />
-      </Box>
-    </Scene>
-  </Renderer>
+  <div ref="ctnRef" class="container" :style="{ backgroundColor }"></div>
 </template>
 
 <style lang="scss" scoped>
+.container {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
 </style>
