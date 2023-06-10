@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import * as T from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
+import { SVGLoader } from 'three/examples/jsm/loaders/SVGLoader'
 import { onMounted, shallowRef } from 'vue'
 import type { Props } from './types'
 import { palette } from './theme'
+import { createPie } from './pie'
 
 const props = withDefaults(defineProps<Props>(), {
   orbitControlsEnabled: true,
@@ -24,7 +26,6 @@ function initThree() {
   sl.position.set(10, 15, 10)
   sl.castShadow = true
   scene.add(sl)
-  scene.add(new T.AxesHelper(5))
 
   const width = ctnRef.value!.clientWidth
   const height = ctnRef.value!.clientHeight
@@ -37,6 +38,8 @@ function initThree() {
 
   const controls = new OrbitControls(camera, renderer.domElement)
   controls.enableDamping = true
+  controls.enablePan = false
+  controls.maxPolarAngle = Math.PI / 2
   function animate() {
     requestAnimationFrame(animate)
     controls.update()
@@ -53,6 +56,34 @@ function initThree() {
 
 onMounted(() => {
   initThree()
+  // console.log(props.pieData)
+  const { pieSvgDataUri } = createPie(props.pieData, 0, 200, 0, 0)
+  // 加载 svg
+  const svgLoader = new SVGLoader()
+  svgLoader.load(pieSvgDataUri, (data) => {
+    const group = new T.Group()
+    data.paths.forEach((path, index) => {
+      const material = new T.MeshStandardMaterial({ color: props.palette[index] })
+      const shapes = SVGLoader.createShapes(path)
+      // 创建每一片
+      shapes.forEach((shape) => {
+        const extrude = new T.ExtrudeGeometry(shape, {
+          curveSegments: 256,
+          steps: 2,
+          depth: props.pieData[index].height,
+          bevelEnabled: true,
+          bevelThickness: 0.01,
+          bevelSize: 0.01,
+          bevelOffset: 0.0,
+          bevelSegments: 1,
+        })
+        const mesh = new T.Mesh(extrude, material)
+        mesh.rotateX(-Math.PI / 2)
+        group.add(mesh)
+      })
+    })
+    sceneRef.value.add(group)
+  })
 })
 </script>
 

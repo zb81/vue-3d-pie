@@ -27,10 +27,12 @@
     "url": "https://github.com/zb81/vue-3d-pie/issues/new"
   },
   "dependencies": {
+    "d3-shape": "^3.2.0",
     "three": "^0.153.0",
     "vue": "^3.3.4"
   },
   "devDependencies": {
+    "@types/d3-shape": "^3.1.1",
     "@types/node": "^20.2.5",
     "@types/three": "^0.152.1",
     "@vitejs/plugin-vue": "^4.2.3",
